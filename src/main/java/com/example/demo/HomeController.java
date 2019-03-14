@@ -30,11 +30,13 @@ public class HomeController {
     }
 
     @PostMapping("/process")
-    public String processForm(@Valid Todo todo, BindingResult result){
+    public String processForm(@Valid Todo todo, BindingResult result, Model model){
         if (result.hasErrors()){
+            model.addAttribute("todo", todo);
             return "todoform";
         }
         todoRepository.save(todo);
+        model.addAttribute("todo", todo);
         return "redirect:/";
     }
 
